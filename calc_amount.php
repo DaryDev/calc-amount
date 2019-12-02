@@ -10,6 +10,7 @@ $rules[] = new App\Rule\RuleOne();
 $rules[] = new App\Rule\RuleTwo();
 $rules[] = new App\Rule\RuleThree();
 $rules[] = new App\Rule\RuleFour();
+$rules[] = new App\Rule\RuleDifferentProducts(['A', 'C']);
 
 $totalAmount = 0;
 /*
