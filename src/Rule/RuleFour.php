@@ -6,18 +6,18 @@ namespace App\Rule;
 
 class RuleFour extends BaseRule
 {
-    /**
-     * Расчитывает стоимость продуктов со скидкой согласно правилу.
-     *
-     * @param array $products
-     *
-     * @return float
-     */
-    private $productOne = 'A';
-    private $productTwo = 'K';
-    private $productThree = 'L';
-    private $productFour = 'M';
-    private $discount = 10;
+    private $mainProduct;
+
+    private $products;
+
+    private $discount;
+
+    public function __construct(string $mainProduct, array $products, $discount)
+    {
+        $this->mainProduct = $mainProduct;
+        $this->products = $products;
+        $this->discount = $discount;
+    }
 
     /**
      * Расчитывает стоимость продуктов со скидкой согласно правилу.
@@ -28,25 +28,15 @@ class RuleFour extends BaseRule
      */
     public function getAmountWithDiscount(array &$products): float
     {
-        if (
-            (array_search($this->productOne, $products)) !== false
-            &&
-            (($index1 = array_search($this->productTwo, $products)) !== false
-            || ($index2 = array_search($this->productThree, $products)) !== false
-            || ($index3 = array_search($this->productFour, $products)) !== false
-            )
-        ) {
-            if ($index1 !== false) {
-                unset($products[$index1]);
-                return $this->calcTotalAmountDiscount([$this->productTwo], $this->discount);
-            }
-            if ($index2 !== false) {
-                unset($products[$index2]);
-                return $this->calcTotalAmountDiscount([$this->productThree], $this->discount);
-            }
-            if ($index1 !== false) {
-                unset($products[$index3]);
-                return $this->calcTotalAmountDiscount([$this->productFour], $this->discount);
+        if ((array_search($this->mainProduct, $products)) === false) {
+            return 0;
+        }
+
+        foreach ($this->products as $product) {
+            if (($index = array_search($product, $products)) !== false) {
+                unset($products[$index]);
+
+                return $this->calcTotalAmountDiscount([$product], $this->discount);
             }
         }
 

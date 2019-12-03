@@ -9,7 +9,7 @@ $rules = [];
 $rules[] = new App\Rule\RuleGroupDiscount(['A', 'B'], 10);
 $rules[] = new App\Rule\RuleGroupDiscount(['D', 'E'], 5);
 $rules[] = new App\Rule\RuleGroupDiscount(['E', 'F', 'G'], 5);
-$rules[] = new App\Rule\RuleFour();
+$rules[] = new App\Rule\RuleFour('A', ['K','L', 'M'], 10);
 $rules[] = new App\Rule\RuleDifferentProducts(['A', 'C']);
 
 $totalAmount = 0;
